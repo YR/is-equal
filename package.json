@@ -6,11 +6,11 @@
   "dependencies": {
   },
   "devDependencies": {
-    "buddy": "3.1.x",
+    "buddy": "*",
     "expect.js": "*",
     "mocha": "*",
     "mocha-phantomjs": "*",
-    "transfigure-babel": "6.1.x"
+    "transfigure-babel": "*"
   },
   "main": "src/index.js",
   "repository": "https://github.com/YR/is-equal.git",
@@ -19,6 +19,9 @@
     "prepublish": "buddy build",
     "test": "NODE_ENV=test mocha test/lib-test.js --reporter spec",
     "test-client": "buddy build && mocha-phantomjs test/test-runner.html"
+  },
+  "engines": {
+    "node": ">=4"
   },
   "browser": "index.js",
   "build": {
