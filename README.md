@@ -1,3 +1,6 @@
+[![NPM Version](https://img.shields.io/npm/v/@yr/is-equal.svg?style=flat)](https://npmjs.org/package/@yr/is-equal)
+[![Build Status](https://img.shields.io/travis/YR/is-equal.svg?style=flat)](https://travis-ci.org/YR/is-equal?branch=master)
+
 Determine whether two objects are conceptually equal.
 
 ## Usage
