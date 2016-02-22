@@ -1,4 +1,10 @@
 'use strict';
+/**
+ * Determine whether two objects are conceptually equal
+ * https://github.com/yr/is-equal
+ * @copyright Yr
+ * @license MIT
+ */
 
 /**
  * Determine if 'obj1' and 'obj2' are conceptually equal,

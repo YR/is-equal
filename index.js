@@ -1,4 +1,10 @@
-'use strict'
+'use strict';
+/**
+ * Determine whether two objects are conceptually equal
+ * https://github.com/yr/is-equal
+ * @copyright Yr
+ * @license MIT
+ */
 
 /**
  * Determine if 'obj1' and 'obj2' are conceptually equal,
@@ -9,7 +15,7 @@
  * @param {Debug} [debug]
  * @returns {Boolean}
  */
-;
+
 module.exports = function isEqual(obj1, obj2, ignore, debug) {
   ignore = ignore || [];
 
@@ -43,8 +49,8 @@ module.exports = function isEqual(obj1, obj2, ignore, debug) {
  * @returns {Boolean}
  */
 function equal(val1, val2) {
-  var type1 = typeof val1 === 'undefined' ? 'undefined' : babelHelpers.typeof(val1),
-      type2 = typeof val2 === 'undefined' ? 'undefined' : babelHelpers.typeof(val2);
+  var type1 = typeof val1,
+      type2 = typeof val2;
 
   // Convert NaN to null
   if (type1 == 'number' && isNaN(val1)) val1 = null;
@@ -61,7 +67,7 @@ function equal(val1, val2) {
  * @returns {Boolean}
  */
 function isObject(obj) {
-  var type = typeof obj === 'undefined' ? 'undefined' : babelHelpers.typeof(obj);
+  var type = typeof obj;
 
   return 'object' == type && 'function' != type && !Array.isArray(obj);
 }
