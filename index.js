@@ -22,15 +22,15 @@ module.exports = function isEqual(obj1, obj2, ignore, debug) {
   if (equal(obj1, obj2)) return true;
 
   if (isObject(obj1) && isObject(obj2)) {
-    var keys1 = keys(obj1, ignore),
-        keys2 = keys(obj2, ignore);
+    var keys1 = keys(obj1, ignore);
+    var keys2 = keys(obj2, ignore);
 
     if (keys1.length != keys2.length) return false;
 
     for (var i = 0, n = keys1.length; i < n; i++) {
-      var prop = keys1[i],
-          val1 = obj1[prop],
-          val2 = obj2[prop];
+      var prop = keys1[i];
+      var val1 = obj1[prop];
+      var val2 = obj2[prop];
 
       if (!equal(val1, val2)) {
         if (debug) debug('"%s" not equal %s:%s', prop, val1, val2);
@@ -49,8 +49,8 @@ module.exports = function isEqual(obj1, obj2, ignore, debug) {
  * @returns {Boolean}
  */
 function equal(val1, val2) {
-  var type1 = typeof val1,
-      type2 = typeof val2;
+  var type1 = typeof val1;
+  var type2 = typeof val2;
 
   // Convert NaN to null
   if (type1 == 'number' && isNaN(val1)) val1 = null;
@@ -93,8 +93,8 @@ function keys(obj, ignore) {
  */
 function isEqualArray(arr1, arr2) {
   if (Array.isArray(arr1) && Array.isArray(arr2)) {
-    var n1 = arr1.length,
-        n2 = arr2.length;
+    var n1 = arr1.length;
+    var n2 = arr2.length;
 
     if (n1 != n2) return false;
     // Equal if both empty

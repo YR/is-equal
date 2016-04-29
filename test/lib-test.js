@@ -2,14 +2,14 @@
 
 var expect, isEqual;
 
-// Make it work in node..
+// Make it work in browser
 try {
-  isEqual = require('../src/index.js');
-  expect = require('expect.js');
-// .. or browser
-} catch (err) {
   isEqual = require('src/index.js');
   expect = window.expect;
+// .. or Node
+} catch (err) {
+  isEqual = require('../src/index.js');
+  expect = require('expect.js');
 }
 
 describe('isEqual', function () {
@@ -18,6 +18,7 @@ describe('isEqual', function () {
   });
   it('should return "true" for same objects', function () {
     var obj = {};
+
     expect(isEqual(obj, obj)).to.equal(true);
     expect(isEqual(obj, {})).to.equal(true);
     expect(isEqual([], [])).to.equal(true);
