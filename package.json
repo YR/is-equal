@@ -15,7 +15,8 @@
     "ts-node": "^6.0.0",
     "typescript": "^2.8.3"
   },
-  "main": "src/index.js",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
   "repository": "https://github.com/YR/is-equal.git",
   "license": "MIT",
   "scripts": {
@@ -23,11 +24,11 @@
     "build-cjs": "tsc --module commonjs --target ES5",
     "build-mjs": "tsc --module es2015 --target ES2017 && renamer --regex --find '\\.js$' --replace '.mjs' 'dist/*.js'",
     "clean": "rimraf dist/",
-    "prepublish": "buddy build",
+    "lint": "prettier --list-different \"src/**/*.ts\"",
+    "prepublish": "npm run build",
     "test": "NODE_ENV=test mocha --require ts-node/register src/**.spec.ts --reporter spec"
   },
   "engines": {
     "node": ">=6"
-  },
-  "browser": "index.js"
+  }
 }
