@@ -1,16 +1,6 @@
-'use strict';
-
-var expect, isEqual;
-
-// Make it work in browser
-try {
-  isEqual = require('src/index.js');
-  expect = window.expect;
-// .. or Node
-} catch (err) {
-  isEqual = require('../src/index.js');
-  expect = require('expect.js');
-}
+import 'mocha'
+import { expect } from 'chai';
+import { isEqual } from './index';
 
 describe('isEqual', function () {
   it('should return "false" for non-objects', function () {
@@ -28,8 +18,8 @@ describe('isEqual', function () {
     expect(isEqual(null, undefined)).to.equal(true);
     expect(isEqual(undefined, undefined)).to.equal(true);
     expect(isEqual(NaN, NaN)).to.equal(true);
-    expect(isEqual(null, NaN)).to.equal(true);
-    expect(isEqual(undefined, NaN)).to.equal(true);
+    expect(isEqual(null, NaN)).to.equal(false);
+    expect(isEqual(undefined, NaN)).to.equal(false);
   });
   it('should return "true" for objects with same properties', function () {
     expect(isEqual({ foo: 'foo', bar: true }, { bar: true, foo: 'foo' })).to.equal(true);
@@ -37,8 +27,8 @@ describe('isEqual', function () {
     expect(isEqual({ foo: null }, { foo: undefined })).to.equal(true);
     expect(isEqual({ foo: undefined }, { foo: undefined })).to.equal(true);
     expect(isEqual({ foo: NaN }, { foo: NaN })).to.equal(true);
-    expect(isEqual({ foo: null }, { foo: NaN })).to.equal(true);
-    expect(isEqual({ foo: undefined }, { foo: NaN })).to.equal(true);
+    expect(isEqual({ foo: null }, { foo: NaN })).to.equal(false);
+    expect(isEqual({ foo: undefined }, { foo: NaN })).to.equal(false);
   });
   it('should return "true" for objects with same array properties', function () {
     expect(isEqual({ foo: [] }, { foo: [] })).to.equal(true);

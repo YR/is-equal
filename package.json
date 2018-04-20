@@ -2,39 +2,32 @@
   "name": "@yr/is-equal",
   "description": "Determine whether two objects are conceptually equal",
   "version": "1.0.3",
-  "author": "Alexander Pope <alexander.pope@nrk.no>",
+  "author": "Alexander Pope <alexander.pope@nrk.no>, Simen Sægrov <simen.sagrov@nrk.no",
   "dependencies": {
+    "@types/chai": "^4.1.2",
+    "@types/mocha": "^5.2.0",
+    "chai": "^4.1.2",
+    "renamer": "^0.6.1",
+    "rimraf": "^2.6.2"
   },
   "devDependencies": {
-    "buddy": "5.0.x",
-    "buddy-plugin-babel": "6.7.x",
-    "expect.js": "*",
-    "mocha": "*",
-    "mocha-phantomjs": "*"
+    "mocha": "^5.1.1",
+    "ts-node": "^6.0.0",
+    "typescript": "^2.8.3"
   },
   "main": "src/index.js",
   "repository": "https://github.com/YR/is-equal.git",
   "license": "MIT",
   "scripts": {
+    "build": "npm run clean && npm run build-mjs && npm run build-cjs",
+    "build-cjs": "tsc --module commonjs --target ES5",
+    "build-mjs": "tsc --module es2015 --target ES2017 && renamer --regex --find '\\.js$' --replace '.mjs' 'dist/*.js'",
+    "clean": "rimraf dist/",
     "prepublish": "buddy build",
-    "test": "NODE_ENV=test mocha test/lib-test.js --reporter spec",
-    "test-client": "buddy build && mocha-phantomjs test/test-runner.html"
+    "test": "NODE_ENV=test mocha --require ts-node/register src/**.spec.ts --reporter spec"
   },
   "engines": {
-    "node": ">=4"
+    "node": ">=6"
   },
-  "browser": "index.js",
-  "build": {
-    "targets": [
-      {
-        "input": "src",
-        "output": ".",
-        "modular": false
-      },
-      {
-        "input": "src/index.js",
-        "output": "test/lib.js"
-      }
-    ]
-  }
+  "browser": "index.js"
 }
