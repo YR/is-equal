@@ -39,16 +39,17 @@ export function isEqual(obj1: any, obj2: any, ignoredObjectProps?: Array<string>
  * Determine if 'val1' and 'val2' are equal
  */
 function equal(val1: any, val2: any): boolean {
-
   // Special handling for NaN
   if (typeof val1 == 'number' && isNaN(val1) && typeof val2 == 'number' && isNaN(val2)) {
     return true;
   }
 
-  return (val1 === val2)
+  return (
+    val1 === val2 ||
     // Handle null & undefined
-    || (val1 == null && val2 == null)
-    || isEqualArray(val1, val2);
+    (val1 == null && val2 == null) ||
+    isEqualArray(val1, val2)
+  );
 }
 
 /**
@@ -57,18 +58,16 @@ function equal(val1: any, val2: any): boolean {
 function isObject(obj: any): boolean {
   const type = typeof obj;
 
-  return 'object' == type
-    && !Array.isArray(obj);
+  return 'object' == type && !Array.isArray(obj);
 }
 
 /**
  * Retrieve non-ignored keys of 'obj'
  */
-function keys(obj: {[key: string]: any}, ignoredObjectProps: Array<string>) {
-  return Object.keys(obj).filter((key) => {
+function keys(obj: { [key: string]: any }, ignoredObjectProps: Array<string>) {
+  return Object.keys(obj).filter(key => {
     // Ignore functions
-    return 'function' != typeof obj[key]
-      && !~ignoredObjectProps.indexOf(key);
+    return 'function' != typeof obj[key] && !~ignoredObjectProps.indexOf(key);
   });
 }
 
