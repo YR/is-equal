@@ -7,16 +7,16 @@
 export type DebugFn = (str: string, ...rest: Array<any>) => void;
 
 /**
- * Determine if 'obj1' and 'obj2' are conceptually equal optionally ignoring properties in 'ignoredObjectProps'
+ * Determine if 'obj1' and 'obj2' are conceptually equal optionally ignoring properties in 'ignore'
  */
-export function isEqual(obj1: any, obj2: any, ignoredObjectProps?: Array<string>, debug?: DebugFn): boolean {
-  ignoredObjectProps = ignoredObjectProps || [];
+export function isEqual(obj1: any, obj2: any, ignore?: Array<string>, debug?: DebugFn): boolean {
+  ignore = ignore || [];
 
   if (equal(obj1, obj2)) return true;
 
   if (isObject(obj1) && isObject(obj2)) {
-    const keys1 = keys(obj1, ignoredObjectProps);
-    const keys2 = keys(obj2, ignoredObjectProps);
+    const keys1 = keys(obj1, ignore);
+    const keys2 = keys(obj2, ignore);
 
     if (keys1.length != keys2.length) return false;
 
@@ -39,10 +39,12 @@ export function isEqual(obj1: any, obj2: any, ignoredObjectProps?: Array<string>
  * Determine if 'val1' and 'val2' are equal
  */
 function equal(val1: any, val2: any): boolean {
-  // Special handling for NaN
-  if (typeof val1 == 'number' && isNaN(val1) && typeof val2 == 'number' && isNaN(val2)) {
-    return true;
-  }
+  const type1 = typeof val1;
+  const type2 = typeof val2;
+
+  // Convert NaN to null
+  if (type1 == 'number' && isNaN(val1)) val1 = null;
+  if (type2 == 'number' && isNaN(val2)) val2 = null;
 
   return (
     val1 === val2 ||
@@ -64,10 +66,10 @@ function isObject(obj: any): boolean {
 /**
  * Retrieve non-ignored keys of 'obj'
  */
-function keys(obj: { [key: string]: any }, ignoredObjectProps: Array<string>) {
+function keys(obj: { [key: string]: any }, ignore: Array<string>) {
   return Object.keys(obj).filter(key => {
     // Ignore functions
-    return 'function' != typeof obj[key] && !~ignoredObjectProps.indexOf(key);
+    return 'function' != typeof obj[key] && !~ignore.indexOf(key);
   });
 }
 

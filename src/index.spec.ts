@@ -19,8 +19,8 @@ describe('isEqual', function() {
     expect(isEqual(null, undefined)).to.equal(true);
     expect(isEqual(undefined, undefined)).to.equal(true);
     expect(isEqual(NaN, NaN)).to.equal(true);
-    expect(isEqual(null, NaN)).to.equal(false);
-    expect(isEqual(undefined, NaN)).to.equal(false);
+    expect(isEqual(null, NaN)).to.equal(true);
+    expect(isEqual(undefined, NaN)).to.equal(true);
   });
 
   it('should return "true" for objects with same properties', function() {
@@ -29,8 +29,8 @@ describe('isEqual', function() {
     expect(isEqual({ foo: null }, { foo: undefined })).to.equal(true);
     expect(isEqual({ foo: undefined }, { foo: undefined })).to.equal(true);
     expect(isEqual({ foo: NaN }, { foo: NaN })).to.equal(true);
-    expect(isEqual({ foo: null }, { foo: NaN })).to.equal(false);
-    expect(isEqual({ foo: undefined }, { foo: NaN })).to.equal(false);
+    expect(isEqual({ foo: null }, { foo: NaN })).to.equal(true);
+    expect(isEqual({ foo: undefined }, { foo: NaN })).to.equal(true);
   });
 
   it('should return "true" for objects with same array properties', function() {
