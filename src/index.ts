@@ -9,9 +9,7 @@ export type DebugFn = (str: string, ...rest: Array<any>) => void;
 /**
  * Determine if 'obj1' and 'obj2' are conceptually equal optionally ignoring properties in 'ignore'
  */
-export function isEqual(obj1: any, obj2: any, ignore?: Array<string>, debug?: DebugFn): boolean {
-  ignore = ignore || [];
-
+export function isEqual(obj1: any, obj2: any, ignore: Array<string> = [], debug?: DebugFn): boolean {
   if (equal(obj1, obj2)) return true;
 
   if (isObject(obj1) && isObject(obj2)) {
