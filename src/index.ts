@@ -1,23 +1,15 @@
-'use strict';
 /**
  * Determine whether two objects are conceptually equal
  * https://github.com/yr/is-equal
  * @copyright Yr
  * @license MIT
  */
+export type DebugFn = (str: string, ...rest: Array<any>) => void;
 
 /**
- * Determine if 'obj1' and 'obj2' are conceptually equal,
- * optionally ignoring properties in 'ignore'
- * @param {Object} obj1
- * @param {Object} obj2
- * @param {Array} [ignore]
- * @param {Debug} [debug]
- * @returns {Boolean}
+ * Determine if 'obj1' and 'obj2' are conceptually equal optionally ignoring properties in 'ignore'
  */
-module.exports = function isEqual (obj1, obj2, ignore, debug) {
-  ignore = ignore || [];
-
+export function isEqual(obj1: any, obj2: any, ignore: Array<string> = [], debug?: DebugFn): boolean {
   if (equal(obj1, obj2)) return true;
 
   if (isObject(obj1) && isObject(obj2)) {
@@ -39,15 +31,12 @@ module.exports = function isEqual (obj1, obj2, ignore, debug) {
     return true;
   }
   return false;
-};
+}
 
 /**
  * Determine if 'val1' and 'val2' are equal
- * @param {Object} val1
- * @param {Object} val2
- * @returns {Boolean}
  */
-function equal (val1, val2) {
+function equal(val1: any, val2: any): boolean {
   const type1 = typeof val1;
   const type2 = typeof val2;
 
@@ -55,46 +44,37 @@ function equal (val1, val2) {
   if (type1 == 'number' && isNaN(val1)) val1 = null;
   if (type2 == 'number' && isNaN(val2)) val2 = null;
 
-  return (val1 === val2)
+  return (
+    val1 === val2 ||
     // Handle null & undefined
-    || (val1 == null && val2 == null)
-    || isEqualArray(val1, val2);
+    (val1 == null && val2 == null) ||
+    isEqualArray(val1, val2)
+  );
 }
 
 /**
  * Determine if 'obj' is an object
- * @param {Object} obj
- * @returns {Boolean}
  */
-function isObject (obj) {
+function isObject(obj: any): boolean {
   const type = typeof obj;
 
-  return 'object' == type
-    && 'function' != type
-    && !Array.isArray(obj);
+  return 'object' == type && !Array.isArray(obj);
 }
 
 /**
  * Retrieve non-ignored keys of 'obj'
- * @param {Object} obj
- * @param {Array} ignore
- * @returns {Array}
  */
-function keys (obj, ignore) {
-  return Object.keys(obj).filter((key) => {
+function keys(obj: { [key: string]: any }, ignore: Array<string>) {
+  return Object.keys(obj).filter(key => {
     // Ignore functions
-    return 'function' != typeof obj[key]
-      && !~ignore.indexOf(key);
+    return 'function' != typeof obj[key] && !~ignore.indexOf(key);
   });
 }
 
 /**
  * Determine if arrays 'arr1' and 'arr2' are equal
- * @param {Array} arr1
- * @param {Array} arr2
- * @returns {Boolean}
  */
-function isEqualArray (arr1, arr2) {
+function isEqualArray(arr1: any, arr2: any): boolean {
   if (Array.isArray(arr1) && Array.isArray(arr2)) {
     const n1 = arr1.length;
     const n2 = arr2.length;
