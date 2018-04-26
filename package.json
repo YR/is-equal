@@ -1,7 +1,7 @@
 {
   "name": "@yr/is-equal",
   "description": "Determine whether two objects are conceptually equal",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "author": "Alexander Pope <alexander.pope@nrk.no>, Simen Sægrov <simen.sagrov@nrk.no",
   "dependencies": {
     "@types/chai": "^4.1.2",
